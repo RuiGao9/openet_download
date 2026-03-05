@@ -1,4 +1,5 @@
-
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18880781.svg)](https://doi.org/10.5281/zenodo.18880781)
+![Visitors Badge](https://visitor-badge.laobi.icu/badge?page_id=RuiGao9/openet_download)<br>
 
 # A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily or monthly) using the OpenET API
 
@@ -49,3 +50,13 @@ show_plot = "True"
 - `plot`, either **True** or **False** showing if you want to save the plot after running the program
 - `show_plot`, either **True** or **False** showing if you want to see the plot after running the program
 <br>Note, `show_plot` won't show the plot if `plot` is **False**.
+
+## Citation
+Rui Gao, Khan, S., & Viers, J. (2026). A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily and monthly) using the OpenET API (0.1.0). Zenodo. https://doi.org/10.5281/zenodo.18880781
+
+## Repository update information
+- Creation date: 2026-03-05
+- Last update: 2026-03-05
+
+## Contact inforamtion if issues were found
+Rui Gao: Rui.Ray.Gao@gmail.com or RuiGao@ucmerced.edu
