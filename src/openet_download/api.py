@@ -9,33 +9,31 @@ from .exceptions import OpenETDownloadError
 Interval = Literal["daily", "monthly"]
 
 # OpenET model choices (canonical forms)
-Model = Literal["Ensemble", "DisALEXI", "eeMETRIC", "geeSEBAL", "PT-JPL", "SIMS", "SSEBop"]
+Model = Literal["ensemble", "disalexi", "eemetric", "geesebal", "ptjpl", "sims", "ssebop"]
 
 AVAILABLE_MODELS: tuple[str, ...] = (
-    "Ensemble",
-    "DisALEXI",
-    "eeMETRIC",
-    "geeSEBAL",
-    "PT-JPL",
-    "SIMS",
-    "SSEBop",
+    "disalexi", "eemetric", "ensemble", "geesebal", "ptjpl", "sims", "ssebop"
 )
 
 _MODEL_CANON: dict[str, str] = {
-    "ensemble": "Ensemble",
-    "disalexi": "DisALEXI",
-    "eemetric": "eeMETRIC",
-    "geeSEBAL".lower(): "geeSEBAL",
-    "geesebal": "geeSEBAL",
-    "pt-jpl": "PT-JPL",
-    "ptjpl": "PT-JPL",
-    "pt_jpl": "PT-JPL",
-    "sims": "SIMS",
-    "ssebop": "SSEBop",
+    # already-canonical
+    "ensemble": "ensemble",
+    "disalexi": "disalexi",
+    "eemetric": "eemetric",
+    "geesebal": "geesebal",
+    "ptjpl": "ptjpl",
+    "sims": "sims",
+    "ssebop": "ssebop",
+
+    # common user spellings -> canonical
+    "pt-jpl": "ptjpl",
+    "pt_jpl": "ptjpl",
+    "pt jpl": "ptjpl",
+    "ptjpl ": "ptjpl",
+    "eemetric ": "eemetric",
 }
 
 OPENET_POINT_URL = "https://openet-api.org/raster/timeseries/point"
-
 
 def normalize_model(model: str) -> str:
     key = model.strip().lower()
