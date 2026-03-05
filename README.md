@@ -54,6 +54,18 @@ show_plot = "True"
 ## Citation
 Rui Gao, Khan, S., & Viers, J. (2026). A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily and monthly) using the OpenET API (0.1.0). Zenodo. https://doi.org/10.5281/zenodo.18880781
 
+**BibTeX:**
+```bibtex
+@misc{gao2026openet_download,
+  author        = {Rui Gao, Mohammad Safeeq, and Joshua H. Viers},
+  title         = {A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily or monthly) using the OpenET API},
+  year         = {2026},
+  publisher    = {Zenodo},
+  doi          = {10.5281/zenodo.18880781},
+  url          = {https://doi.org/10.5281/zenodo.18880781}
+}
+```
+
 ## Repository update information
 - Creation date: 2026-03-05
 - Last update: 2026-03-05
