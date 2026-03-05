@@ -8,7 +8,44 @@ from .exceptions import OpenETDownloadError
 
 Interval = Literal["daily", "monthly"]
 
+# OpenET model choices (canonical forms)
+Model = Literal["Ensemble", "DisALEXI", "eeMETRIC", "geeSEBAL", "PT-JPL", "SIMS", "SSEBop"]
+
+AVAILABLE_MODELS: tuple[str, ...] = (
+    "Ensemble",
+    "DisALEXI",
+    "eeMETRIC",
+    "geeSEBAL",
+    "PT-JPL",
+    "SIMS",
+    "SSEBop",
+)
+
+_MODEL_CANON: dict[str, str] = {
+    "ensemble": "Ensemble",
+    "disalexi": "DisALEXI",
+    "eemetric": "eeMETRIC",
+    "geeSEBAL".lower(): "geeSEBAL",
+    "geesebal": "geeSEBAL",
+    "pt-jpl": "PT-JPL",
+    "ptjpl": "PT-JPL",
+    "pt_jpl": "PT-JPL",
+    "sims": "SIMS",
+    "ssebop": "SSEBop",
+}
+
 OPENET_POINT_URL = "https://openet-api.org/raster/timeseries/point"
+
+
+def normalize_model(model: str) -> str:
+    key = model.strip().lower()
+    canon = _MODEL_CANON.get(key)
+    if canon is None:
+        raise OpenETDownloadError(
+            f"Unknown model '{model}'. Choose one of: {', '.join(AVAILABLE_MODELS)}"
+        )
+    return canon
+
 
 def fetch_point_timeseries(
     lon: float,
@@ -25,9 +62,15 @@ def fetch_point_timeseries(
 ) -> pd.DataFrame:
     """
     Fetch OpenET time-series for a point.
-    Returns a DataFrame with columns: ['date', 'ET_mm'] (+ any extra columns API provides).
-    """
 
+    Returns a DataFrame with columns: ['date', 'ET_mm'] (+ any extra columns API provides).
+
+    Parameters
+    ----------
+    model : str
+        One of: Ensemble, DisALEXI, eeMETRIC, geeSEBAL, PT-JPL, SIMS, SSEBop
+        (case-insensitive; also accepts ptjpl / pt-jpl / eemetric, etc.)
+    """
     # API key: prefer argument, fall back to env var
     api_key = api_key or os.getenv("OPENET_API_KEY")
     if not api_key:
@@ -35,12 +78,15 @@ def fetch_point_timeseries(
             "Missing API key. Pass api_key=... or set environment variable OPENET_API_KEY."
         )
 
+    # Normalize model name to canonical OpenET naming
+    model = normalize_model(model)
+
     payload: dict[str, Any] = {
         "date_range": [start, end],
         "interval": interval,
-        "geometry": [lon, lat],      # [longitude, latitude]
+        "geometry": [lon, lat],  # [longitude, latitude]
         "model": model,
-        "variable": variable,        # ETa in OpenET wording
+        "variable": variable,  # ETa in OpenET wording
         "reference_et": reference_et,
         "units": units,
         "file_format": "JSON",
@@ -52,11 +98,15 @@ def fetch_point_timeseries(
         "Content-Type": "application/json",
     }
 
-    resp = requests.post(OPENET_POINT_URL, json=payload, headers=headers, timeout=timeout_s)
+    resp = requests.post(
+        OPENET_POINT_URL, json=payload, headers=headers, timeout=timeout_s
+    )
     try:
         resp.raise_for_status()
     except requests.HTTPError as e:
-        raise OpenETDownloadError(f"OpenET API request failed: {e} | body={resp.text[:500]}") from e
+        raise OpenETDownloadError(
+            f"OpenET API request failed: {e} | body={resp.text[:500]}"
+        ) from e
 
     data = resp.json()
 
@@ -66,7 +116,9 @@ def fetch_point_timeseries(
     elif isinstance(data, dict):
         records = data.get("data") or data.get("timeseries") or data.get("values")
         if records is None:
-            raise OpenETDownloadError(f"Unexpected response keys: {list(data.keys())}")
+            raise OpenETDownloadError(
+                f"Unexpected response keys: {list(data.keys())}"
+            )
     else:
         raise OpenETDownloadError(f"Unexpected response type: {type(data)}")
 
@@ -85,7 +137,9 @@ def fetch_point_timeseries(
         df = df.rename(columns={"et": "ET_mm"})
 
     if "date" not in df.columns or "ET_mm" not in df.columns:
-        raise OpenETDownloadError(f"Could not identify 'date' and ET column in response. Columns: {list(df.columns)}")
+        raise OpenETDownloadError(
+            f"Could not identify 'date' and ET column in response. Columns: {list(df.columns)}"
+        )
 
     df["date"] = pd.to_datetime(df["date"])
     df = df.sort_values("date").reset_index(drop=True)
