@@ -1,0 +1,43 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "openet-download"
+version = "0.1.0"
+description = "Download OpenET evapotranspiration (ET) time series via the OpenET API (daily or monthly), save CSV, and generate plots."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { file = "LICENSE" }
+authors = [{ name = "Rui Gao", email = "ruigao@ucmerced.edu" }]
+keywords = ["OpenET", "evapotranspiration", "ET", "time series", "API", "hydrology"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent",
+  "Intended Audience :: Science/Research",
+  "Topic :: Scientific/Engineering :: GIS",
+  "Topic :: Scientific/Engineering :: Hydrology",
+]
+
+dependencies = [
+  "requests>=2.31",
+  "pandas>=2.0",
+  "matplotlib>=3.7",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8", "ruff>=0.4"]
+
+[project.urls]
+Homepage = "https://github.com/<your-user-or-org>/openet_download"
+Repository = "https://github.com/<your-user-or-org>/openet_download"
+Issues = "https://github.com/<your-user-or-org>/openet_download/issues"
+Documentation = "https://github.com/<your-user-or-org>/openet_download#readme"
+DOI = "https://doi.org/10.5281/zenodo.xxxxxxx"  # fill in after Zenodo creates it
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
