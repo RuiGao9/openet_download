@@ -30,11 +30,11 @@ dependencies = [
 dev = ["pytest>=8", "ruff>=0.4"]
 
 [project.urls]
-Homepage = "https://github.com/<your-user-or-org>/openet_download"
-Repository = "https://github.com/<your-user-or-org>/openet_download"
-Issues = "https://github.com/<your-user-or-org>/openet_download/issues"
-Documentation = "https://github.com/<your-user-or-org>/openet_download#readme"
-DOI = "https://doi.org/10.5281/zenodo.xxxxxxx"  # fill in after Zenodo creates it
+Homepage = "https://github.com/RuiGao9/openet_download"
+Repository = "https://github.com/RuiGao9/openet_download"
+Issues = "https://github.com/RuiGao9/openet_download/issues"
+Documentation = "https://github.com/RuiGao9/openet_download/blob/main/README.md"
+DOI = "https://doi.org/10.5281/zenodo.18880781"  # fill in after Zenodo creates it
 
 [tool.setuptools]
 package-dir = {"" = "src"}

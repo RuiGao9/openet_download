@@ -19,7 +19,7 @@
   - a **PNG** time-series plot
 
 ## Get an OpenET API Key
-Apply / find your API key at: https://openetdata.org/
+Apply/find your API key at: https://openetdata.org/
 
 ## Installation
 ```
