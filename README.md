@@ -1,5 +1,5 @@
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.18880781.svg)](https://doi.org/10.5281/zenodo.18880781)
-![Visitors Badge](https://visitor-badge.laobi.icu/badge?page_id=RuiGao9/openet_download)<br>
+![Stars](https://img.shields.io/github/stars/RuiGao9/openet_download?style=social)<br>
 
 # A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily or monthly) using the OpenET API
 
