@@ -52,7 +52,7 @@ show_plot = "True"
 <br>Note, `show_plot` won't show the plot if `plot` is **False**.
 
 ## Citation
-Rui Gao, Khan, S., & Viers, J. (2026). A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily and monthly) using the OpenET API (0.1.0). Zenodo. https://doi.org/10.5281/zenodo.18880781
+Rui Gao, Safeeq, M., & Viers, J. (2026). A lightweight Python package to download OpenET evapotranspiration (ET) time-series data (daily and monthly) using the OpenET API (0.1.0). Zenodo. https://doi.org/10.5281/zenodo.18880781
 
 **BibTeX:**
 ```bibtex
